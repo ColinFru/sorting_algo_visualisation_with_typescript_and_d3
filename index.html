@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="src/styles/reset.css" />
         <link rel="stylesheet" href="src/styles/index.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>SortAlgo</title>
+        <title>SortingAlgoVis</title>
     </head>
     <body>
         <header>
@@ -18,18 +18,13 @@
         <main>
             <div class="selects-wrapper">
                 <div class="select-outer-container">
-                    <p>Choose the data size:</p>
+                    <p>Choose the data size from 1 to 1500 &emsp;<br>ideally around 200-500:  </p>
                     <div class="select-inner-container">
-                        <select id="data-size">
-                            <option value="50" selected>50</option>
-                            <option value="100">100</option>
-                            <option value="250">250</option>
-                            <option value="500">500</option>
-                        </select>
+                      <input type="number" id="data-size" value="50" min="1" max="1000" step="1" />
                     </div>
                 </div>
                 <div class="select-outer-container">
-                    <p>Choose sorting alogorithm:</p>
+                    <p>&emsp;Choose sorting alogorithm: &emsp;</p>
                     <div class="select-inner-container">
                         <select id="sorting-algorithm">
                             <option value="bubble-sort" selected>Bubble Sort</option>
@@ -40,6 +35,12 @@
                             <option value="radix-sort">Radix Sort</option>
                             <option value="bucket-sort">Bucket Sort</option>
                         </select>
+                    </div>
+                </div>
+                <div class="select-outer-container">
+                    <p>Choose a delay in miliseconds:  </p>
+                    <div class="select-inner-container">
+                        <input type="number" id="delay-miliseconds" value="0" min="0" max="1000" step="1" />
                     </div>
                 </div>
             </div>

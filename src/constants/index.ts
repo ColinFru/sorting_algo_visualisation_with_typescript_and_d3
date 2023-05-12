@@ -1,5 +1,5 @@
 export const CHART_MARGIN = { top: 30, right: 10, bottom: 30, left: 10 }
-export const CHART_WIDTH = 900 - CHART_MARGIN.left - CHART_MARGIN.right
+export const CHART_WIDTH = 1800 - CHART_MARGIN.left - CHART_MARGIN.right
 export const CHART_HEIGHT = 550 - CHART_MARGIN.top - CHART_MARGIN.bottom
 
 export const [
@@ -10,6 +10,7 @@ export const [
     SORT_TIME,
     TIME_COMPLEXITY,
     SPACE_COMPLEXITY,
+    DELAY_TIME
 ] = [
     document.querySelector('#sorting-algorithm') as HTMLSelectElement,
     document.querySelector('#data-size') as HTMLSelectElement,
@@ -18,4 +19,5 @@ export const [
     document.querySelector('#time-stats') as HTMLParagraphElement,
     document.querySelector('#time-complexity') as HTMLParagraphElement,
     document.querySelector('#space-complexity') as HTMLParagraphElement,
+    document.querySelector('delay-miliseconds') as HTMLSelectElement,
 ]

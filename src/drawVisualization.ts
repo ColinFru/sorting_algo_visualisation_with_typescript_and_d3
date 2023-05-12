@@ -11,21 +11,32 @@ import {
 } from './constants'
 import { SelectAlgorithm } from './utils'
 
-const drawVisualization = (data: number[], algorithmType: SortingAlgorithms) => {
-    data = data.filter(d => d !== undefined)
+const drawVisualization = (data: number[], algorithmType: SortingAlgorithms) => { // delay could also be integrated here 
+    data = data.filter(d => d !== undefined)    //  filters the data array to remove any undefined values, which can cause errors when creating rectangles.
     // If it is .visualization del it first
-    d3.select('.visualization').selectAll('rect').remove()
-    d3.select('.visualization').select('svg').remove()
+    d3.select('.visualization').selectAll('rect').remove()  //selects all rectangles in the HTML element with the class "visualization" and removes them from the DOM (Document Object Model).
+    d3.select('.visualization').select('svg').remove()      //selects the SVG element in the HTML element with the class "visualization" and removes it from the DOM.
 
-    const svg = d3
-        .select('.visualization')
-        .append('svg')
-        .attr('width', CHART_WIDTH)
-        .attr('height', CHART_HEIGHT)
-        .attr('transform', 'translate(' + CHART_MARGIN.left + ',' + CHART_MARGIN.top + ')')
+    const svg = d3  // SVG=> Scalable Vector Graphics, which is a format for creating vector graphics on the web.
+        .select('.visualization')       // selects the HTML element with the class "visualization"
+        .append('svg')                  // appends an SVG element to the selected HTML element
+        .attr('width', CHART_WIDTH)     // sets the width of the SVG element to the value of the constant CHART_WIDTH.
+        .attr('height', CHART_HEIGHT)   // sets the height of the SVG element to the value of the constant CHART_HEIGHT
+        .attr('transform', 'translate(' + CHART_MARGIN.left + ',' + CHART_MARGIN.top + ')') // sets the position of the SVG element using the transform attribute. 
+            //The translate function is used to move the SVG element from its original position to a new position.
+            //The CHART_MARGIN constant contains an object with the left and top properties, which are used as the translation values.
+        //The resulting SVG element will have the specified width, height, and position relative to the HTML element with the class "visualization". 
+        //This code is often used in data visualization projects to create an empty SVG container that can be populated with various shapes, 
+            //such as circles, rectangles, and lines, to create data visualizations.
 
-    const maxValue = data.reduce((max, val) => (val !== undefined && val > max ? val : max), 0)
-    const yScale = d3
+    const maxValue = data.reduce((max, val) => (val !== undefined && val > max ? val : max), 0) // returns max value from data 
+        // (val !== undefined && val > max ? val : max) returns 
+            // val if (val !== undefined && val > max) is true, else it returns max 
+        // reduce() is called on the data array, with a callback function that takes two parameters: max and val. 
+            //The max parameter is the value that the callback function returns on each iteration, and it is initialized to 0 by default.
+            //val is the current value of the current element in the data array 
+
+    const yScale = d3 // creates a linear scale for the y-axis, based on the maxValue found in the previous line of code.
         .scaleLinear()
         .domain([0, maxValue + 10]) // added to avoid overflow find later better fix
         .range([CHART_HEIGHT, 0])
@@ -33,11 +44,11 @@ const drawVisualization = (data: number[], algorithmType: SortingAlgorithms) => 
     // Create a bar chart using the data
     const barPadding = 0.95 // added to avoid overflow find later better fix
     const barWidth = CHART_WIDTH / data.length - 1
-    svg.selectAll('rect')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('x', (_d, i) => i * (barWidth + barPadding))
+    svg.selectAll('rect')   // selects all <rect> elements in the SVG element 
+        .data(data)         //and binds the data array to them.
+        .enter()            //creates a selection of placeholder elements for each data point that doesn't have a corresponding rectangle yet.
+        .append('rect')     //adds a new rectangle for each placeholder element.
+        .attr('x', (_d, i) => i * (barWidth + barPadding)) 
         .attr('width', barWidth)
         .attr('y', d => yScale(d))
         .attr('height', d => CHART_HEIGHT - yScale(d))

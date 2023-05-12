@@ -1,6 +1,6 @@
 import { generateData } from './utils'
 import drawVisualization from './drawVisualization'
-import * as d3 from 'd3'
+import * as d3 from 'd3';
 import { SORT_TIME, SPACE_COMPLEXITY, START_BUTTON, TIME_COMPLEXITY } from './constants'
 import { getComplexity } from './utils/getComplexity'
 
@@ -12,13 +12,14 @@ let currentAlgorithmType: SortingAlgorithms | null = null
 let currentDataSize: number | null = null
 
 const drawVisualizationOnLoad = (isReset?: boolean) => {
-    const dataSize = +dataSizeSelect.property('value')
+    const dataSize = +dataSizeSelect.property('value') // the '+' converts the returned value (string) into a number 
     const algorithmType: SortingAlgorithms = algorithmTypeSelect.property('value')
     SORT_TIME.textContent = '0.00 s'
     START_BUTTON.disabled = false
     const shouldUpdateVisualization =
         currentAlgorithmType !== algorithmType || currentDataSize !== dataSize || isReset
-    if (shouldUpdateVisualization) {
+    
+        if (shouldUpdateVisualization) {
         currentDataSize = dataSize
 
         if (currentAlgorithmType !== algorithmType) {
@@ -31,6 +32,8 @@ const drawVisualizationOnLoad = (isReset?: boolean) => {
 
         const data = generateData(dataSize)
         drawVisualization(data, algorithmType)
+
+        
     }
 }
 //reshuffle the values
