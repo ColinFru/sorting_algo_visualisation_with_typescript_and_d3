@@ -8,11 +8,16 @@ import {
     SELECT_SORTING_ALGORITHM,
     SORT_TIME,
     START_BUTTON,
+    DELAY_TIME
 } from './constants'
 import { SelectAlgorithm } from './utils'
 
 const drawVisualization = (data: number[], algorithmType: SortingAlgorithms) => { // delay could also be integrated here 
-    data = data.filter(d => d !== undefined)    //  filters the data array to remove any undefined values, which can cause errors when creating rectangles.
+    data = data.filter(d => d !== undefined && d!== 0)    //  filters the data array to remove any undefined values, which can cause errors when creating rectangles.
+    const max = Math.max(...data);
+    const newValue = max + 1;
+    data.push(newValue);
+    
     // If it is .visualization del it first
     d3.select('.visualization').selectAll('rect').remove()  //selects all rectangles in the HTML element with the class "visualization" and removes them from the DOM (Document Object Model).
     d3.select('.visualization').select('svg').remove()      //selects the SVG element in the HTML element with the class "visualization" and removes it from the DOM.
